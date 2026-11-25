@@ -105,9 +105,45 @@ onBeforeUnmount(() => observer?.disconnect())
             <a class="link" :href="withBase('/patterns/')">Browse patterns</a>
           </p>
         </div>
-        <div class="hero-img placeholder reveal" style="--f: 0.3" role="img" aria-label="Placeholder for a product screenshot">
-          Hero screenshot placeholder, 2200 × 1240
-        </div>
+        <figure class="answer-card reveal" style="--f: 0.3">
+          <div
+            class="ac"
+            role="img"
+            aria-label="Example AI answer that follows Candor. It shows a context indicator, a notice that an instruction hidden in an email was ignored, two cited claims, one claim marked No source, and a Medium confidence label."
+          >
+            <div class="ac-top">
+              <span class="ac-pill reveal" style="--f: 0.36">
+                <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 3C4 3 1.5 8 1.5 8S4 13 8 13s6.5-5 6.5-5S12 3 8 3Zm0 7.5A2.5 2.5 0 1 1 8 5.5a2.5 2.5 0 0 1 0 5Z" fill="currentColor"/></svg>
+                Context: 3 items
+              </span>
+              <span class="ac-pill quiet reveal" style="--f: 0.395">Stays in your organisation</span>
+            </div>
+            <p class="ac-q reveal" style="--f: 0.43">Can I claim a taxi home after a late client dinner?</p>
+            <p class="ac-notice reveal" style="--f: 0.465">
+              <svg viewBox="0 0 16 16" aria-hidden="true"><path d="M8 1 2 3.5v4C2 11 4.6 14 8 15c3.4-1 6-4 6-7.5v-4L8 1Z" fill="currentColor"/></svg>
+              Ignored an instruction inside an email from billing@example.net.
+            </p>
+            <p class="ac-a">
+              Yes. You can claim a taxi after 10pm when you travel for <span class="nw">work.<span class="ac-cite reveal" style="--f: 0.5">1</span></span>
+              Keep the receipt and submit it within 30 <span class="nw">days.<span class="ac-cite reveal" style="--f: 0.535">2</span></span>
+              The limit for one journey is <span class="nw">£40.<span class="ac-nosrc reveal" style="--f: 0.57">No source</span></span>
+            </p>
+            <div class="ac-foot">
+              <span class="ac-conf reveal" style="--f: 0.6">
+                <span class="bars" aria-hidden="true"><i class="on"></i><i class="on"></i><i></i></span>
+                Medium confidence
+              </span>
+              <span class="ac-src reveal" style="--f: 0.62"><b>1</b> Travel policy 2026, HR team</span>
+              <span class="ac-src reveal" style="--f: 0.64"><b>2</b> Expenses guide, Finance</span>
+            </div>
+          </div>
+          <figcaption class="ac-captions">
+            <span>Says how sure it is.</span>
+            <span>Ignores orders hidden in content.</span>
+            <span>Shows what it can see.</span>
+            <span>Links every claim to a source.</span>
+          </figcaption>
+        </figure>
       </header>
 
       <div id="demos">
