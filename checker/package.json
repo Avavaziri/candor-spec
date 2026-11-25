@@ -1,0 +1,40 @@
+{
+  "name": "candor-check",
+  "version": "0.1.0",
+  "description": "Scan an AI web app's code against the Candor interaction patterns and get fixes.",
+  "type": "module",
+  "license": "MIT",
+  "bin": {
+    "candor-check": "bin/candor-check.js"
+  },
+  "exports": {
+    ".": "./src/scan.js",
+    "./report": "./src/report.js"
+  },
+  "files": [
+    "bin",
+    "src",
+    "README.md"
+  ],
+  "engines": {
+    "node": ">=18"
+  },
+  "keywords": [
+    "ai",
+    "llm",
+    "accessibility",
+    "prompt-injection",
+    "privacy",
+    "linter",
+    "candor"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Avavaziri/candor-spec.git",
+    "directory": "checker"
+  },
+  "homepage": "https://avavaziri.github.io/candor-spec/check",
+  "scripts": {
+    "test": "node --test \"test/*.test.js\""
+  }
+}
