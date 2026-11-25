@@ -1,13 +1,14 @@
-/* Candor "spec paper" theme. Light palette first, dark overrides below. */
+/* Candor spec pages. Same tokens as the landing page; light first, dark below. */
 :root {
-  --paper: #f9f9f7;
-  --surface: #eff0ec;
-  --ink: #17191c;
-  --ink-muted: #4f5661;
-  --rule: #d8dbe0;
-  --accent: #2445a0;
-  --accent-strong: #1b3480;
-  --accent-soft: #e4e9f6;
+  --paper: #ffffff;
+  --surface: #f5f5f7;
+  --ink: #1d1d1f;
+  --ink-muted: #6e6e73;
+  --rule: #d2d2d7;
+  --accent: #0066cc;
+  --accent-fill: #0071e3;
+  --accent-soft: #e8f1fc;
+  --radius: 22px;
 
   --vp-c-bg: var(--paper);
   --vp-c-bg-alt: var(--surface);
@@ -18,47 +19,54 @@
   --vp-c-divider: var(--rule);
   --vp-c-gutter: var(--rule);
   --vp-c-brand-1: var(--accent);
-  --vp-c-brand-2: var(--accent-strong);
-  --vp-c-brand-3: var(--accent);
+  --vp-c-brand-2: var(--accent);
+  --vp-c-brand-3: var(--accent-fill);
   --vp-c-brand-soft: var(--accent-soft);
-  --vp-home-hero-name-color: var(--ink);
+  --vp-button-brand-bg: var(--accent-fill);
+  --vp-button-brand-hover-bg: var(--accent);
+  --vp-nav-bg-color: color-mix(in srgb, var(--paper) 72%, transparent);
 
-  --vp-font-family-base: 'Inter Variable', 'Segoe UI', system-ui, sans-serif;
-  --serif: 'Source Serif 4 Variable', 'Iowan Old Style', Georgia, serif;
+  --vp-font-family-base: -apple-system, BlinkMacSystemFont, 'Inter Variable', 'Inter', 'Segoe UI', Roboto, sans-serif;
 }
 
 .dark {
-  --paper: #121417;
-  --surface: #1b1e22;
-  --ink: #e4e6e9;
-  --ink-muted: #a3aab5;
-  --rule: #2d3238;
-  --accent: #9db6f5;
-  --accent-strong: #c2d2fa;
-  --accent-soft: #1e2a45;
-  --vp-c-bg-elv: #1b1e22;
-  --vp-button-brand-text: #0f1525;
-  --vp-button-brand-hover-text: #0f1525;
-  --vp-button-brand-active-text: #0f1525;
+  --paper: #000000;
+  --surface: #161617;
+  --ink: #f5f5f7;
+  --ink-muted: #a1a1a6;
+  --rule: #2c2c2e;
+  --accent: #2997ff;
+  --accent-soft: #0b2440;
+  --vp-c-bg-elv: #161617;
 }
 
-/* Headings are set in the serif, like a printed standard. */
+body { -webkit-font-smoothing: antialiased; }
+
+/* Frosted top bar, like the landing page. */
+.VPNavBar,
+.VPNavBar.has-sidebar .content-body,
+.VPNavBar:not(.home) .divider {
+  background: var(--vp-nav-bg-color) !important;
+}
+.VPNavBar {
+  backdrop-filter: blur(20px) saturate(180%);
+  -webkit-backdrop-filter: blur(20px) saturate(180%);
+}
+.VPNavBarTitle .title { font-weight: 600; letter-spacing: -0.01em; }
+
+/* Headings: tight, heavy sans. */
 .vp-doc h1,
 .vp-doc h2,
-.vp-doc h3,
-.VPHero .name,
-.VPHero .text {
-  font-family: var(--serif);
+.vp-doc h3 {
   font-weight: 600;
-  letter-spacing: -0.01em;
+  letter-spacing: -0.02em;
 }
-.vp-doc h1 { font-size: 2.25rem; line-height: 1.15; }
-.vp-doc h2 { font-size: 1.5rem; border-top-color: var(--rule); }
+.vp-doc h1 { font-size: clamp(2rem, 4vw, 2.75rem); line-height: 1.1; }
+.vp-doc h2 { font-size: 1.6rem; border-top-color: var(--rule); }
 .vp-doc h3 { font-size: 1.2rem; }
 .vp-doc p,
-.vp-doc li { line-height: 1.7; }
+.vp-doc li { line-height: 1.65; }
 .vp-doc { max-width: 46rem; }
-
 .vp-doc a { text-underline-offset: 0.18em; }
 
 /* BCP 14 keywords: small caps, never colour alone. */
@@ -69,18 +77,18 @@
   color: inherit;
 }
 
-/* Normative requirement: hanging clause ID in the margin. */
+/* Normative requirement: clause ID in the margin. */
 .req {
   display: grid;
   grid-template-columns: 4.75rem 1fr;
   gap: 0 1rem;
-  padding: 0.75rem 0;
+  padding: 0.85rem 0;
   border-top: 1px solid var(--rule);
   scroll-margin-top: calc(var(--vp-nav-height) + 1rem);
+  transition: background-color 600ms cubic-bezier(0.16, 1, 0.3, 1);
 }
 .req:last-of-type { border-bottom: 1px solid var(--rule); }
 .req-id {
-  font-family: var(--serif);
   font-variant-numeric: tabular-nums;
   font-weight: 600;
   padding-top: 0.1rem;
@@ -96,68 +104,6 @@
   .req { grid-template-columns: 1fr; }
 }
 
-/* Draft status line above every normative page. */
-.status-banner {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 0.25rem 0.75rem;
-  margin: 0 0 1.5rem;
-  padding: 0.6rem 0.9rem;
-  border-left: 3px solid var(--accent);
-  background: var(--surface);
-  font-size: 0.875rem;
-  color: var(--ink-muted);
-}
-.status-name { font-weight: 600; color: var(--ink); }
-.status-banner a { color: var(--accent); }
-
-/* Pattern summary card under the title. */
-.vp-doc .pattern-meta {
-  display: grid;
-  grid-template-columns: max-content 1fr;
-  gap: 0.25rem 1rem;
-  margin: 1rem 0 2rem;
-  font-size: 0.9rem;
-}
-.vp-doc .pattern-meta dt { color: var(--ink-muted); }
-.vp-doc .pattern-meta dd { margin: 0; }
-
-
-/* Embedded demos. */
-.demo { margin: 1.5rem 0; }
-.demo iframe {
-  width: 100%;
-  border: 1px solid var(--rule);
-  background: var(--paper);
-  display: block;
-}
-.demo figcaption {
-  margin-top: 0.5rem;
-  font-size: 0.875rem;
-  color: var(--ink-muted);
-}
-
-:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: 2px;
-}
-
-@media (prefers-reduced-motion: reduce) {
-  *, *::before, *::after { transition: none !important; animation: none !important; }
-}
-
-.vp-doc h2#conformance-checklist + ul { list-style: none; padding-left: 0; }
-.vp-doc h2#conformance-checklist + ul li { padding-left: 1.75rem; position: relative; }
-.vp-doc h2#conformance-checklist + ul li::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0.4em;
-  width: 0.9em;
-  height: 0.9em;
-  border: 1.5px solid var(--ink-muted);
-}
-
 /* Notes that follow a requirement. */
 .vp-doc .req + p {
   margin: 0.5rem 0 0 5.75rem;
@@ -168,8 +114,57 @@
   .vp-doc .req + p { margin-left: 0; }
 }
 
+/* Draft status line above every normative page. */
+.status-banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  margin: 0 0 1.75rem;
+  padding: 0.75rem 1rem;
+  border-radius: 14px;
+  background: var(--surface);
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}
+.status-name { font-weight: 600; color: var(--ink); }
+.status-banner a { color: var(--accent); }
+
+/* Pattern summary under the title. */
+.vp-doc .pattern-meta {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25rem 1rem;
+  margin: 1rem 0 2rem;
+  padding: 1.25rem 1.5rem;
+  border-radius: var(--radius);
+  background: var(--surface);
+  font-size: 0.9rem;
+}
+.vp-doc .pattern-meta dt { color: var(--ink-muted); }
+.vp-doc .pattern-meta dd { margin: 0; }
+
+/* Embedded demos. */
+.demo { margin: 1.75rem 0; }
+.demo iframe {
+  width: 100%;
+  border: 0;
+  border-radius: var(--radius);
+  background: var(--surface);
+  display: block;
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+}
+.demo figcaption {
+  margin-top: 0.75rem;
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}
+
+/* Checklists render as boxes a reviewer can tick. */
+.vp-doc h2#conformance-checklist + ul,
 .checklist-page .vp-doc h3 + ul { list-style: none; padding-left: 0; }
+.vp-doc h2#conformance-checklist + ul li,
 .checklist-page .vp-doc h3 + ul li { padding-left: 1.75rem; position: relative; }
+.vp-doc h2#conformance-checklist + ul li::before,
 .checklist-page .vp-doc h3 + ul li::before {
   content: '';
   position: absolute;
@@ -178,19 +173,16 @@
   width: 0.9em;
   height: 0.9em;
   border: 1.5px solid var(--ink-muted);
+  border-radius: 4px;
 }
 
-/* Home: flat, ruled, like the contents page of a printed standard. */
-.VPHero .name { font-weight: 600; }
-.VPHero .text { font-weight: 400; color: var(--ink-muted); }
-.VPButton { border-radius: 2px !important; }
-.VPFeature {
-  border-radius: 0 !important;
-  background: transparent !important;
-  border: 0 !important;
-  border-top: 2px solid var(--ink) !important;
+.VPButton { border-radius: 980px !important; }
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
-.VPFeature .box { padding: 1rem 0 0 !important; }
-.VPFeature .title { font-family: var(--serif); font-size: 1.15rem; }
-.home-sample { max-width: 46rem; margin: 3rem auto 0; }
-.home-sample .req + p { margin: 1.25rem 0 0; font-size: inherit; color: inherit; }
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}

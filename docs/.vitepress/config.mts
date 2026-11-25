@@ -54,7 +54,10 @@ export default defineConfig({
   base: '/candor-spec/',
   cleanUrls: true,
   lastUpdated: true,
-  head: [['meta', { name: 'theme-color', content: '#2445a0' }]],
+  head: [
+    ['meta', { name: 'theme-color', content: '#0071e3' }],
+    ['noscript', {}, '<style>.landing .reveal{opacity:1!important;transform:none!important}</style>']
+  ],
   markdown: {
     config(md) {
       md.use(bcp14)

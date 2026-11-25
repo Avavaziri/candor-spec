@@ -8,3 +8,4 @@ First public draft.
 - 16 patterns in four areas: uncertainty, injection warnings, privacy boundaries and verifiable citing.
 - Demos for UNC-1, INJ-2, PRV-1 and CIT-1.
 - Generated conformance checklist.
+- New site design: landing page with live demos, sans type, one blue accent, light and dark themes.

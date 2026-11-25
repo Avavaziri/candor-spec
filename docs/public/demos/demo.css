@@ -1,48 +1,48 @@
 /* Shared styles for Candor demos. Demos imitate a product UI, so they use system fonts. */
 :root {
-  --bg: #f4f5f7;
+  --bg: #f5f5f7;
   --surface: #ffffff;
-  --text: #1a1c20;
-  --muted: #555c68;
+  --text: #1d1d1f;
+  --muted: #5f5f64;
   --border: #c9ced6;
-  --accent: #2445a0;
+  --accent: #0066cc;
   --accent-text: #ffffff;
-  --accent-soft: #e4e9f6;
+  --accent-soft: #e8f1fc;
   --warn-soft: #fdf1d8;
   --warn-border: #8a5a00;
   --external-soft: #eef0f3;
-  --focus: #2445a0;
+  --focus: #0066cc;
   color-scheme: light;
 }
 :root[data-theme='dark'] {
-  --bg: #121417;
-  --surface: #1b1e22;
-  --text: #e4e6e9;
-  --muted: #a3aab5;
+  --bg: #000000;
+  --surface: #1d1d1f;
+  --text: #f5f5f7;
+  --muted: #a1a1a6;
   --border: #3a4049;
-  --accent: #9db6f5;
-  --accent-text: #0f1525;
-  --accent-soft: #1e2a45;
+  --accent: #2997ff;
+  --accent-text: #000000;
+  --accent-soft: #0b2440;
   --warn-soft: #33270f;
   --warn-border: #e0b14f;
   --external-soft: #23272d;
-  --focus: #9db6f5;
+  --focus: #2997ff;
   color-scheme: dark;
 }
 @media (prefers-color-scheme: dark) {
   :root:not([data-theme='light']) {
-    --bg: #121417;
-    --surface: #1b1e22;
-    --text: #e4e6e9;
-    --muted: #a3aab5;
+    --bg: #000000;
+    --surface: #1d1d1f;
+    --text: #f5f5f7;
+    --muted: #a1a1a6;
     --border: #3a4049;
-    --accent: #9db6f5;
-    --accent-text: #0f1525;
-    --accent-soft: #1e2a45;
+    --accent: #2997ff;
+    --accent-text: #000000;
+    --accent-soft: #0b2440;
     --warn-soft: #33270f;
     --warn-border: #e0b14f;
     --external-soft: #23272d;
-    --focus: #9db6f5;
+    --focus: #2997ff;
     color-scheme: dark;
   }
 }
@@ -65,7 +65,7 @@ body {
 .msg {
   background: var(--surface);
   border: 1px solid var(--border);
-  border-radius: 8px;
+  border-radius: 18px;
   padding: 0.875rem 1rem;
 }
 .msg-user { background: var(--accent-soft); border-color: transparent; justify-self: end; max-width: 85%; }
@@ -78,7 +78,7 @@ button, .button {
   font-size: 0.875rem;
   min-height: 32px;
   padding: 0.25rem 0.75rem;
-  border-radius: 6px;
+  border-radius: 980px;
   border: 1px solid var(--border);
   background: var(--surface);
   color: var(--text);
