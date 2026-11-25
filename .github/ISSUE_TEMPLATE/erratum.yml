@@ -1,0 +1,28 @@
+name: Erratum
+description: A requirement is wrong, unclear, untestable or harmful.
+labels: [erratum]
+body:
+  - type: input
+    id: requirement
+    attributes:
+      label: Requirement ID
+      description: For example UNC-1.3. Write "general" if the problem is not in one requirement.
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: What is the problem?
+      description: Say what is wrong, and who it affects.
+    validations:
+      required: true
+  - type: textarea
+    id: proposal
+    attributes:
+      label: What should change?
+      description: Suggest new text if you can.
+  - type: textarea
+    id: evidence
+    attributes:
+      label: Evidence
+      description: Links, test results or product examples. Remove personal data.

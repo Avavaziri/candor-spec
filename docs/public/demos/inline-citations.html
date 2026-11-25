@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>CIT-1 Inline citations demo</title>
+<link rel="stylesheet" href="demo.css">
+<style>
+  .marker {
+    min-height: 24px;
+    min-width: 24px;
+    padding: 0 0.35rem;
+    margin-left: 0.15rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    vertical-align: baseline;
+    border-color: var(--accent);
+    color: var(--accent);
+  }
+  .marker[aria-expanded='true'] { background: var(--accent); color: var(--accent-text); }
+  .no-source {
+    display: inline-block;
+    margin-left: 0.25rem;
+    padding: 0 0.4rem;
+    font-size: 0.8125rem;
+    font-weight: 600;
+    border: 1.5px dashed var(--warn-border);
+    border-radius: 4px;
+    background: var(--warn-soft);
+  }
+  .preview dl { display: grid; grid-template-columns: max-content 1fr; gap: 0.15rem 0.75rem; margin: 0 0 0.5rem; }
+  .preview dt { color: var(--muted); }
+  .preview dd { margin: 0; }
+  .preview blockquote { margin: 0.5rem 0; padding: 0; }
+  .preview mark {
+    background: var(--accent-soft);
+    color: var(--text);
+    border-bottom: 2px solid var(--accent);
+    padding: 0 0.1rem;
+  }
+  .preview .label { font-size: 0.8125rem; color: var(--muted); margin: 0; }
+  .sources h2 { font-size: 0.9375rem; margin: 1rem 0 0.25rem; }
+  .sources ol { margin: 0; padding-left: 1.25rem; font-size: 0.875rem; }
+  .sources li { margin-bottom: 0.25rem; }
+  .sources .meta { color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+<h1 class="visually-hidden">CIT-1 Inline citations demo</h1>
+<p class="demo-note">Demo data. The company, policy and sources are made up.</p>
+
+<div class="thread">
+  <div class="msg msg-user"><span class="who">You</span><p>Can I claim a taxi home after a late client dinner?</p></div>
+  <article class="msg" aria-labelledby="ans-label">
+    <span class="who" id="ans-label">Assistant</span>
+    <p>
+      Yes. You can claim a taxi home after 10pm when you travel for work.<button type="button" class="marker" aria-expanded="false" aria-controls="pv1" aria-label="Source 1: Travel policy 2026, HR team">1</button>
+    </p>
+    <div class="panel preview" id="pv1" hidden>
+      <dl>
+        <dt>Title</dt><dd>Travel policy 2026</dd>
+        <dt>Owner</dt><dd>HR team</dd>
+        <dt>Type</dt><dd>Web page, staff intranet</dd>
+        <dt>Date</dt><dd>Updated 12 January 2026</dd>
+      </dl>
+      <p class="label">Supporting passage, section 4.2:</p>
+      <blockquote><p><mark>Staff may claim a taxi home after 10pm for work travel.</mark></p></blockquote>
+      <div class="actions">
+        <a class="button" href="https://example.com/travel-policy-2026#section-4-2" target="_blank" rel="noopener">Open source: Travel policy 2026</a>
+        <button type="button" data-close="pv1">Close preview</button>
+      </div>
+    </div>
+    <p>
+      Keep the receipt and submit it within 30 days.<button type="button" class="marker" aria-expanded="false" aria-controls="pv2" aria-label="Source 2: Expenses guide, Finance team">2</button>
+    </p>
+    <div class="panel preview" id="pv2" hidden>
+      <dl>
+        <dt>Title</dt><dd>Expenses guide</dd>
+        <dt>Owner</dt><dd>Finance team</dd>
+        <dt>Type</dt><dd>PDF, 8 pages</dd>
+        <dt>Date</dt><dd>Updated 3 March 2026</dd>
+      </dl>
+      <p class="label">Supporting passage, page 3:</p>
+      <blockquote><p><mark>Submit all receipts within 30 days of the expense.</mark></p></blockquote>
+      <div class="actions">
+        <a class="button" href="https://example.com/expenses-guide.pdf#page=3" target="_blank" rel="noopener">Open source: Expenses guide</a>
+        <button type="button" data-close="pv2">Close preview</button>
+      </div>
+    </div>
+    <p>
+      The limit for one journey is £40.<button type="button" class="no-source button" aria-expanded="false" aria-controls="ns1">No source</button>
+    </p>
+    <div class="panel" id="ns1" hidden>
+      <p>None of the sources for this answer contains this claim. It may still be true. Check it before you use it.</p>
+      <div class="actions">
+        <a class="button" href="#find">Find a source</a>
+        <button type="button" data-close="ns1">Close</button>
+      </div>
+    </div>
+
+    <section class="sources" aria-labelledby="src-h">
+      <h2 id="src-h">Sources</h2>
+      <ol>
+        <li><a href="https://example.com/travel-policy-2026" target="_blank" rel="noopener">Travel policy 2026</a> <span class="meta">HR team, example.com, 12 January 2026</span></li>
+        <li><a href="https://example.com/expenses-guide.pdf" target="_blank" rel="noopener">Expenses guide</a> <span class="meta">Finance team, example.com, 3 March 2026</span></li>
+      </ol>
+      <p class="label" style="margin-top:0.5rem;font-size:0.8125rem;color:var(--muted)">1 claim in this answer has no source.</p>
+    </section>
+  </article>
+</div>
+</main>
+<script src="demo.js"></script>
+<script>
+  function closePanel(id) {
+    const panel = document.getElementById(id)
+    const trigger = document.querySelector(`[aria-controls="${id}"]`)
+    panel.hidden = true
+    trigger.setAttribute('aria-expanded', 'false')
+    trigger.focus()
+  }
+  document.addEventListener('click', (event) => {
+    const close = event.target.closest('[data-close]')
+    if (close) closePanel(close.dataset.close)
+  })
+  document.addEventListener('keydown', (event) => {
+    if (event.key !== 'Escape') return
+    const open = event.target.closest('.panel:not([hidden])') ||
+      document.getElementById(event.target.getAttribute?.('aria-controls') ?? '')
+    if (open && !open.hidden) closePanel(open.id)
+  })
+</script>
+</body>
+</html>

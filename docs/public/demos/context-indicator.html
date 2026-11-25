@@ -1,0 +1,130 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PRV-1 Context indicator demo</title>
+<link rel="stylesheet" href="demo.css">
+<style>
+  .notice { font-size: 0.8125rem; color: var(--muted); border-left: 3px solid var(--border); padding: 0.25rem 0.75rem; }
+  .composer { max-width: 42rem; margin-top: 1rem; background: var(--surface); border: 1px solid var(--border); border-radius: 8px; padding: 0.75rem; }
+  .composer label { display: block; font-size: 0.8125rem; font-weight: 600; margin-bottom: 0.25rem; }
+  .composer textarea { width: 100%; font: inherit; color: var(--text); background: var(--bg); border: 1px solid var(--border); border-radius: 6px; padding: 0.5rem; resize: vertical; }
+  .composer-bar { display: flex; flex-wrap: wrap; justify-content: space-between; align-items: center; gap: 0.5rem; margin-top: 0.5rem; }
+  .context-list { list-style: none; margin: 0; padding: 0; }
+  .context-list li { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 0.25rem 0.75rem; padding: 0.5rem 0; border-top: 1px solid var(--border); }
+  .context-list li:first-child { border-top: 0; }
+  .item-name { font-weight: 600; }
+  .item-meta { display: block; font-size: 0.8125rem; color: var(--muted); }
+  .state { font-weight: 600; color: var(--text); }
+  .sim { margin-top: 1rem; max-width: 42rem; font-size: 0.8125rem; color: var(--muted); }
+</style>
+</head>
+<body>
+<main>
+<h1 class="visually-hidden">PRV-1 Context indicator demo</h1>
+<p class="demo-note">Demo data. The files, calendar and memory are made up. Nothing is sent anywhere.</p>
+
+<div class="thread" id="thread">
+  <div class="msg msg-user"><span class="who">You</span><p>Summarise the travel costs in the attached budget.</p></div>
+  <article class="msg" aria-labelledby="a1-label">
+    <span class="who" id="a1-label">Assistant</span>
+    <p>Travel costs in Q3-budget.xlsx total £14,200. Rail is the largest part, at £8,900.</p>
+  </article>
+</div>
+
+<div class="composer">
+  <label for="message">Message</label>
+  <textarea id="message" rows="2">Do these costs follow the travel policy?</textarea>
+  <div class="composer-bar">
+    <button type="button" id="context-button" aria-expanded="false" aria-controls="context-panel">
+      Context: <span id="context-count">5 items</span>
+    </button>
+    <button type="button" class="primary" id="send">Send</button>
+  </div>
+  <div class="panel" id="context-panel" hidden>
+    <p><strong>The assistant can read these items now.</strong></p>
+    <ul class="context-list" id="context-list">
+      <li data-id="conversation">
+        <span><span class="item-name">This conversation</span>
+          <span class="item-meta">Conversation. <span class="state">Read.</span> Required for this chat.</span></span>
+      </li>
+      <li data-id="operator">
+        <span><span class="item-name">Instructions from your organisation</span>
+          <span class="item-meta">Operator instructions. <span class="state">Read.</span> Required by your organisation. Text not shown.</span></span>
+      </li>
+      <li data-id="budget">
+        <span><span class="item-name">Q3-budget.xlsx</span>
+          <span class="item-meta">File you attached. <span class="state">Read.</span></span></span>
+        <button type="button" data-remove="budget">Remove <span class="visually-hidden">Q3-budget.xlsx</span></button>
+      </li>
+      <li data-id="calendar">
+        <span><span class="item-name">Team calendar</span>
+          <span class="item-meta">Connected app, read only. <span class="state">Can access.</span> Not read yet.</span></span>
+        <button type="button" data-remove="calendar">Remove <span class="visually-hidden">Team calendar</span></button>
+      </li>
+      <li data-id="memory">
+        <span><span class="item-name">Memory: 2 saved facts</span>
+          <span class="item-meta">Memory from past chats. <span class="state">Read.</span> <a href="#memory">View and delete memory</a></span></span>
+        <button type="button" data-remove="memory">Remove <span class="visually-hidden">Memory</span></button>
+      </li>
+    </ul>
+  </div>
+</div>
+
+<p class="sim">Demo control: <button type="button" id="simulate">Make the assistant open handbook.pdf</button></p>
+<div role="status" class="visually-hidden" id="live"></div>
+
+</main>
+<script src="demo.js"></script>
+<script>
+  const list = document.getElementById('context-list')
+  const count = document.getElementById('context-count')
+  const live = document.getElementById('live')
+  const thread = document.getElementById('thread')
+  const contextButton = document.getElementById('context-button')
+
+  function updateCount() {
+    const n = list.children.length
+    count.textContent = n === 1 ? '1 item' : n + ' items'
+  }
+
+  function notice(text) {
+    const p = document.createElement('p')
+    p.className = 'notice'
+    p.textContent = text
+    thread.append(p)
+    live.textContent = text
+  }
+
+  list.addEventListener('click', (event) => {
+    const button = event.target.closest('button[data-remove]')
+    if (!button) return
+    const item = button.closest('li')
+    const name = item.querySelector('.item-name').textContent
+    const next = item.nextElementSibling?.querySelector('button') || item.previousElementSibling?.querySelector('button') || contextButton
+    item.remove()
+    updateCount()
+    notice('You removed ' + name + ' from context.')
+    next.focus()
+  })
+
+  document.getElementById('simulate').addEventListener('click', (event) => {
+    if (list.querySelector('[data-id="handbook"]')) return
+    const li = document.createElement('li')
+    li.dataset.id = 'handbook'
+    li.innerHTML = '<span><span class="item-name">handbook.pdf</span>' +
+      '<span class="item-meta">File the assistant opened from Team files. <span class="state">Read.</span></span></span>' +
+      '<button type="button" data-remove="handbook">Remove <span class="visually-hidden">handbook.pdf</span></button>'
+    list.append(li)
+    updateCount()
+    notice('Assistant opened handbook.pdf.')
+    event.target.disabled = true
+  })
+
+  document.getElementById('send').addEventListener('click', () => {
+    live.textContent = 'This demo does not send messages.'
+  })
+</script>
+</body>
+</html>

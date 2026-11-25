@@ -1,0 +1,196 @@
+/* Candor "spec paper" theme. Light palette first, dark overrides below. */
+:root {
+  --paper: #f9f9f7;
+  --surface: #eff0ec;
+  --ink: #17191c;
+  --ink-muted: #4f5661;
+  --rule: #d8dbe0;
+  --accent: #2445a0;
+  --accent-strong: #1b3480;
+  --accent-soft: #e4e9f6;
+
+  --vp-c-bg: var(--paper);
+  --vp-c-bg-alt: var(--surface);
+  --vp-c-bg-elv: #ffffff;
+  --vp-c-bg-soft: var(--surface);
+  --vp-c-text-1: var(--ink);
+  --vp-c-text-2: var(--ink-muted);
+  --vp-c-divider: var(--rule);
+  --vp-c-gutter: var(--rule);
+  --vp-c-brand-1: var(--accent);
+  --vp-c-brand-2: var(--accent-strong);
+  --vp-c-brand-3: var(--accent);
+  --vp-c-brand-soft: var(--accent-soft);
+  --vp-home-hero-name-color: var(--ink);
+
+  --vp-font-family-base: 'Inter Variable', 'Segoe UI', system-ui, sans-serif;
+  --serif: 'Source Serif 4 Variable', 'Iowan Old Style', Georgia, serif;
+}
+
+.dark {
+  --paper: #121417;
+  --surface: #1b1e22;
+  --ink: #e4e6e9;
+  --ink-muted: #a3aab5;
+  --rule: #2d3238;
+  --accent: #9db6f5;
+  --accent-strong: #c2d2fa;
+  --accent-soft: #1e2a45;
+  --vp-c-bg-elv: #1b1e22;
+  --vp-button-brand-text: #0f1525;
+  --vp-button-brand-hover-text: #0f1525;
+  --vp-button-brand-active-text: #0f1525;
+}
+
+/* Headings are set in the serif, like a printed standard. */
+.vp-doc h1,
+.vp-doc h2,
+.vp-doc h3,
+.VPHero .name,
+.VPHero .text {
+  font-family: var(--serif);
+  font-weight: 600;
+  letter-spacing: -0.01em;
+}
+.vp-doc h1 { font-size: 2.25rem; line-height: 1.15; }
+.vp-doc h2 { font-size: 1.5rem; border-top-color: var(--rule); }
+.vp-doc h3 { font-size: 1.2rem; }
+.vp-doc p,
+.vp-doc li { line-height: 1.7; }
+.vp-doc { max-width: 46rem; }
+
+.vp-doc a { text-underline-offset: 0.18em; }
+
+/* BCP 14 keywords: small caps, never colour alone. */
+.bcp14 {
+  font-variant-caps: all-small-caps;
+  letter-spacing: 0.05em;
+  font-weight: 650;
+  color: inherit;
+}
+
+/* Normative requirement: hanging clause ID in the margin. */
+.req {
+  display: grid;
+  grid-template-columns: 4.75rem 1fr;
+  gap: 0 1rem;
+  padding: 0.75rem 0;
+  border-top: 1px solid var(--rule);
+  scroll-margin-top: calc(var(--vp-nav-height) + 1rem);
+}
+.req:last-of-type { border-bottom: 1px solid var(--rule); }
+.req-id {
+  font-family: var(--serif);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+  padding-top: 0.1rem;
+  color: var(--accent) !important;
+  text-decoration: none !important;
+}
+.req-id:hover { text-decoration: underline !important; }
+.req:target { background: var(--accent-soft); }
+.req-body > :first-child { margin-top: 0; }
+.req-body > :last-child { margin-bottom: 0; }
+
+@media (max-width: 640px) {
+  .req { grid-template-columns: 1fr; }
+}
+
+/* Draft status line above every normative page. */
+.status-banner {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  margin: 0 0 1.5rem;
+  padding: 0.6rem 0.9rem;
+  border-left: 3px solid var(--accent);
+  background: var(--surface);
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}
+.status-name { font-weight: 600; color: var(--ink); }
+.status-banner a { color: var(--accent); }
+
+/* Pattern summary card under the title. */
+.vp-doc .pattern-meta {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 0.25rem 1rem;
+  margin: 1rem 0 2rem;
+  font-size: 0.9rem;
+}
+.vp-doc .pattern-meta dt { color: var(--ink-muted); }
+.vp-doc .pattern-meta dd { margin: 0; }
+
+
+/* Embedded demos. */
+.demo { margin: 1.5rem 0; }
+.demo iframe {
+  width: 100%;
+  border: 1px solid var(--rule);
+  background: var(--paper);
+  display: block;
+}
+.demo figcaption {
+  margin-top: 0.5rem;
+  font-size: 0.875rem;
+  color: var(--ink-muted);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after { transition: none !important; animation: none !important; }
+}
+
+.vp-doc h2#conformance-checklist + ul { list-style: none; padding-left: 0; }
+.vp-doc h2#conformance-checklist + ul li { padding-left: 1.75rem; position: relative; }
+.vp-doc h2#conformance-checklist + ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.4em;
+  width: 0.9em;
+  height: 0.9em;
+  border: 1.5px solid var(--ink-muted);
+}
+
+/* Notes that follow a requirement. */
+.vp-doc .req + p {
+  margin: 0.5rem 0 0 5.75rem;
+  font-size: 0.9rem;
+  color: var(--ink-muted);
+}
+@media (max-width: 640px) {
+  .vp-doc .req + p { margin-left: 0; }
+}
+
+.checklist-page .vp-doc h3 + ul { list-style: none; padding-left: 0; }
+.checklist-page .vp-doc h3 + ul li { padding-left: 1.75rem; position: relative; }
+.checklist-page .vp-doc h3 + ul li::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0.4em;
+  width: 0.9em;
+  height: 0.9em;
+  border: 1.5px solid var(--ink-muted);
+}
+
+/* Home: flat, ruled, like the contents page of a printed standard. */
+.VPHero .name { font-weight: 600; }
+.VPHero .text { font-weight: 400; color: var(--ink-muted); }
+.VPButton { border-radius: 2px !important; }
+.VPFeature {
+  border-radius: 0 !important;
+  background: transparent !important;
+  border: 0 !important;
+  border-top: 2px solid var(--ink) !important;
+}
+.VPFeature .box { padding: 1rem 0 0 !important; }
+.VPFeature .title { font-family: var(--serif); font-size: 1.15rem; }
+.home-sample { max-width: 46rem; margin: 3rem auto 0; }
+.home-sample .req + p { margin: 1.25rem 0 0; font-size: inherit; color: inherit; }

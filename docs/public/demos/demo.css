@@ -1,0 +1,116 @@
+/* Shared styles for Candor demos. Demos imitate a product UI, so they use system fonts. */
+:root {
+  --bg: #f4f5f7;
+  --surface: #ffffff;
+  --text: #1a1c20;
+  --muted: #555c68;
+  --border: #c9ced6;
+  --accent: #2445a0;
+  --accent-text: #ffffff;
+  --accent-soft: #e4e9f6;
+  --warn-soft: #fdf1d8;
+  --warn-border: #8a5a00;
+  --external-soft: #eef0f3;
+  --focus: #2445a0;
+  color-scheme: light;
+}
+:root[data-theme='dark'] {
+  --bg: #121417;
+  --surface: #1b1e22;
+  --text: #e4e6e9;
+  --muted: #a3aab5;
+  --border: #3a4049;
+  --accent: #9db6f5;
+  --accent-text: #0f1525;
+  --accent-soft: #1e2a45;
+  --warn-soft: #33270f;
+  --warn-border: #e0b14f;
+  --external-soft: #23272d;
+  --focus: #9db6f5;
+  color-scheme: dark;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme='light']) {
+    --bg: #121417;
+    --surface: #1b1e22;
+    --text: #e4e6e9;
+    --muted: #a3aab5;
+    --border: #3a4049;
+    --accent: #9db6f5;
+    --accent-text: #0f1525;
+    --accent-soft: #1e2a45;
+    --warn-soft: #33270f;
+    --warn-border: #e0b14f;
+    --external-soft: #23272d;
+    --focus: #9db6f5;
+    color-scheme: dark;
+  }
+}
+
+* { box-sizing: border-box; }
+[hidden] { display: none !important; }
+body {
+  margin: 0;
+  padding: 1rem;
+  background: var(--bg);
+  color: var(--text);
+  font: 15px/1.55 system-ui, -apple-system, 'Segoe UI', Roboto, sans-serif;
+}
+.demo-note {
+  margin: 0 0 1rem;
+  font-size: 0.8125rem;
+  color: var(--muted);
+}
+.thread { display: grid; gap: 1rem; max-width: 42rem; }
+.msg {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 8px;
+  padding: 0.875rem 1rem;
+}
+.msg-user { background: var(--accent-soft); border-color: transparent; justify-self: end; max-width: 85%; }
+.msg p { margin: 0 0 0.5rem; }
+.msg p:last-child { margin-bottom: 0; }
+.who { display: block; font-size: 0.8125rem; font-weight: 600; color: var(--muted); margin-bottom: 0.25rem; }
+
+button, .button {
+  font: inherit;
+  font-size: 0.875rem;
+  min-height: 32px;
+  padding: 0.25rem 0.75rem;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: var(--surface);
+  color: var(--text);
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+}
+button.primary { background: var(--accent); color: var(--accent-text); border-color: var(--accent); }
+button:hover { border-color: var(--text); }
+a { color: var(--accent); text-underline-offset: 0.15em; }
+:focus-visible { outline: 2px solid var(--focus); outline-offset: 2px; }
+
+.panel {
+  margin-top: 0.5rem;
+  padding: 0.75rem;
+  border-left: 3px solid var(--border);
+  background: var(--bg);
+  font-size: 0.875rem;
+}
+.panel p { margin: 0 0 0.5rem; }
+.actions { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.5rem; }
+
+.visually-hidden {
+  position: absolute !important;
+  width: 1px; height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition: none !important; animation: none !important; }
+}

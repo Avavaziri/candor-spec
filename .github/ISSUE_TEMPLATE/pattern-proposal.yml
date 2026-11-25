@@ -1,0 +1,34 @@
+name: Pattern proposal
+description: Propose a new pattern. Do this before you write a pull request.
+labels: [new-pattern]
+body:
+  - type: input
+    id: name
+    attributes:
+      label: Pattern name
+    validations:
+      required: true
+  - type: dropdown
+    id: area
+    attributes:
+      label: Area
+      options: [Uncertainty, Injection warnings, Privacy boundaries, Verifiable citing, New area]
+    validations:
+      required: true
+  - type: textarea
+    id: problem
+    attributes:
+      label: User problem
+      description: Who is hurt without this pattern, and how?
+    validations:
+      required: true
+  - type: textarea
+    id: requirements
+    attributes:
+      label: Draft requirements
+      description: Two to five rules with MUST, SHOULD or MAY.
+  - type: textarea
+    id: prior-art
+    attributes:
+      label: Prior art
+      description: Published sources or shipped products. Give links.

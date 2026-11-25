@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UNC-1 Confidence signal demo</title>
+<link rel="stylesheet" href="demo.css">
+<style>
+  .signal { margin-top: 0.75rem; }
+  .level { display: inline-flex; gap: 2px; }
+  .level span { width: 6px; height: 14px; border: 1.5px solid currentColor; border-radius: 1px; }
+  .level span.on { background: currentColor; }
+  .signal-low > button { background: var(--warn-soft); border-color: var(--warn-border); }
+  .panel p > a { display: inline-block; padding-block: 3px; }
+</style>
+</head>
+<body>
+<main>
+<h1 class="visually-hidden">UNC-1 Confidence signal demo</h1>
+<p class="demo-note">Demo data. The questions, answers and sources are made up, except the bridge date.</p>
+
+<div class="thread">
+  <div class="msg msg-user"><span class="who">You</span><p>When did the Forth Bridge open?</p></div>
+  <article class="msg" aria-labelledby="a1-label">
+    <span class="who" id="a1-label">Assistant</span>
+    <p>The Forth Bridge opened on 4 March 1890.</p>
+    <div class="signal">
+      <button type="button" aria-expanded="false" aria-controls="a1-reason">
+        <span class="level" aria-hidden="true"><span class="on"></span><span class="on"></span><span class="on"></span></span>
+        High confidence
+      </button>
+      <div class="panel" id="a1-reason" hidden>
+        <p>High confidence: three official sources agree on this date.</p>
+        <p><a href="#basis">How we measure confidence</a></p>
+      </div>
+    </div>
+  </article>
+
+  <div class="msg msg-user"><span class="who">You</span><p>What is the largest file I can upload?</p></div>
+  <article class="msg" aria-labelledby="a2-label">
+    <span class="who" id="a2-label">Assistant</span>
+    <p>You can upload files up to 250 MB.</p>
+    <div class="signal">
+      <button type="button" aria-expanded="false" aria-controls="a2-reason">
+        <span class="level" aria-hidden="true"><span class="on"></span><span class="on"></span><span></span></span>
+        Medium confidence
+      </button>
+      <div class="panel" id="a2-reason" hidden>
+        <p>Medium confidence: two help pages agree, but one is 18 months old.</p>
+        <p><a href="#basis">How we measure confidence</a></p>
+      </div>
+    </div>
+  </article>
+
+  <div class="msg msg-user"><span class="who">You</span><p>Does the travel policy pay for a taxi after 10pm?</p></div>
+  <article class="msg" aria-labelledby="a3-label">
+    <span class="who" id="a3-label">Assistant</span>
+    <p>The travel policy may pay for a taxi after 10pm if no train runs. Check this before you book.</p>
+    <div class="signal signal-low">
+      <button type="button" aria-expanded="true" aria-controls="a3-reason">
+        <span class="level" aria-hidden="true"><span class="on"></span><span></span><span></span></span>
+        Low confidence
+      </button>
+      <div class="panel" id="a3-reason">
+        <p>Low confidence: only one source supports this, and it is from 2019.</p>
+        <div class="actions">
+          <a class="button" href="#source">Check the source</a>
+          <a class="button" href="#ask">Ask the travel team</a>
+        </div>
+        <p><a href="#basis">How we measure confidence</a></p>
+      </div>
+    </div>
+  </article>
+</div>
+</main>
+<script src="demo.js"></script>
+</body>
+</html>
