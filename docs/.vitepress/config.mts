@@ -50,13 +50,13 @@ const areas = [
 export default defineConfig({
   lang: 'en-GB',
   title: 'Candor',
-  description: 'Candor: open interaction patterns for honest, safe AI interfaces.',
+  description: 'Candor checks your AI app for hidden-instruction, data and source problems, and tells you how to fix them.',
   base: '/candor-spec/',
   cleanUrls: true,
   lastUpdated: true,
   head: [
     ['meta', { name: 'theme-color', content: '#0071e3' }],
-    ['noscript', {}, '<style>.landing .reveal{opacity:1!important;transform:none!important}</style>']
+    ['noscript', {}, '<style>.landing .reveal,.hero-clause .hc-enter{opacity:1!important;transform:none!important}.hc-lines path{stroke-dashoffset:0!important}</style>']
   ],
   markdown: {
     config(md) {
@@ -77,6 +77,7 @@ export default defineConfig({
     nav: [
       { text: 'Specification', link: '/spec/introduction' },
       { text: 'Patterns', link: '/patterns/' },
+      { text: 'Check your site', link: '/check' },
       { text: 'Checklist', link: '/checklist' },
       { text: 'Contribute', link: '/contributing' }
     ],

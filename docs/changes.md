@@ -9,3 +9,4 @@ First public draft.
 - Demos for UNC-1, INJ-2, PRV-1 and CIT-1.
 - Generated conformance checklist.
 - New site design: landing page with live demos, sans type, one blue accent, light and dark themes.
+- Candor check: a code scanner for AI web apps, in the browser and as a command.

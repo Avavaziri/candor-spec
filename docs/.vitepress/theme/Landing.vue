@@ -1,6 +1,7 @@
 <script setup lang="ts">
 import { onMounted, onBeforeUnmount, ref } from 'vue'
 import { useData, withBase } from 'vitepress'
+import HeroClause from './HeroClause.vue'
 
 const { isDark } = useData()
 const root = ref<HTMLElement | null>(null)
@@ -8,36 +9,36 @@ const repo = 'https://github.com/Avavaziri/candor-spec'
 
 const areas = [
   {
-    id: 'uncertainty',
-    title: 'Says when it isn’t sure.',
-    sub: 'Confidence signals, honest hedges and a clear “I don’t know”.',
-    link: '/patterns/uncertainty/confidence-signal',
-    linkText: 'Try the live demo',
-    label: 'Example answer with a Low confidence label. The reason says only one source supports it, from 2019, and offers two next steps.'
-  },
-  {
     id: 'injection',
-    title: 'Outside text can’t give orders.',
-    sub: 'Untrusted content is labelled. Actions it starts wait for you.',
+    title: 'Hidden instructions that take over.',
+    sub: 'We flag tools that run without asking, and AI output inserted as raw HTML. The fix: the user confirms every action.',
     link: '/patterns/injection/confirm-triggered-actions',
-    linkText: 'Try the live demo',
+    linkText: 'See the rule and a live demo',
     label: 'Example confirmation. The assistant wants to forward 3 emails to an outside address because of text inside an email. Deny is the default choice.'
   },
   {
     id: 'privacy',
-    title: 'You see what it sees.',
-    sub: 'What the AI can read, what leaves your device, and how long it stays.',
+    title: 'Data that leaves without a word.',
+    sub: 'We flag API keys in browser code, and messages sent straight to a model provider. The fix: show what the AI can read and where data goes.',
     link: '/patterns/privacy/context-indicator',
-    linkText: 'Try the live demo',
+    linkText: 'See the rule and a live demo',
     label: 'Example context list. It names each item the assistant can read, says which ones it has read, and notes that the assistant opened handbook.pdf.'
   },
   {
     id: 'citing',
-    title: 'Every claim, checkable.',
-    sub: 'Each claim links to its source. Claims with no source are marked.',
+    title: 'Sources nobody can check.',
+    sub: 'We flag answers built from your documents that show no sources. The fix: a citation after every claim.',
     link: '/patterns/citing/inline-citations',
-    linkText: 'Try the live demo',
+    linkText: 'See the rule and a live demo',
     label: 'Example answer with numbered citations. One citation is open and shows the source title, owner, date and the exact supporting quote.'
+  },
+  {
+    id: 'uncertainty',
+    title: 'Confidence with nothing behind it.',
+    sub: 'We flag prompts that never let the model say “I don’t know”. The fix: a plain decline, or a confidence label with a reason.',
+    link: '/patterns/uncertainty/confidence-signal',
+    linkText: 'See the rule and a live demo',
+    label: 'Example answer with a Low confidence label. The reason says only one source supports it, from 2019, and offers two next steps.'
   }
 ]
 
@@ -68,8 +69,8 @@ onBeforeUnmount(() => observer?.disconnect())
       <div class="top-links">
         <a :href="withBase('/spec/introduction')">Spec</a>
         <a :href="withBase('/patterns/')">Patterns</a>
+        <a :href="withBase('/check')">Check</a>
         <a :href="withBase('/checklist')">Checklist</a>
-        <a href="#demos">Demos</a>
         <a :href="repo">GitHub</a>
       </div>
       <div class="top-actions">
@@ -84,57 +85,24 @@ onBeforeUnmount(() => observer?.disconnect())
             <path v-else fill="currentColor" d="M20 15.3A8.5 8.5 0 0 1 8.7 4a8.5 8.5 0 1 0 11.3 11.3Z" />
           </svg>
         </button>
-        <a class="pill" :href="withBase('/spec/introduction')">Read the spec</a>
+        <a class="pill" :href="withBase('/check')">Check your app</a>
       </div>
     </nav>
 
     <main>
-      <header class="hero">
+      <HeroClause />
+
+      <section class="how" aria-labelledby="how-title">
         <div class="wrap">
-          <h1 class="reveal" style="--f: 0">Honest AI, by design.</h1>
-          <p class="sub reveal" style="--f: 0.12">Open patterns that show what an AI knows, sees and cites.</p>
-          <p class="cta reveal" style="--f: 0.24">
-            <a class="btn" :href="withBase('/spec/introduction')">Read the spec</a>
-            <a class="link" :href="withBase('/patterns/')">Browse patterns</a>
-          </p>
+          <h2 id="how-title" class="reveal" style="--f: 0">How it works.</h2>
+          <p class="sub reveal" style="--f: 0.12">Three steps. No account, no upload.</p>
         </div>
-        <figure class="answer-card reveal" style="--f: 0.3">
-          <div
-            class="ac"
-            role="img"
-            aria-label="Example AI answer that follows Candor. It shows a context indicator, a notice that an instruction hidden in an email was ignored, two cited claims, one claim marked No source, and a Medium confidence label."
-          >
-            <div class="ac-top">
-              <span class="ac-pill reveal" style="--f: 0.36">
-                Context: 3 items
-              </span>
-              <span class="ac-pill quiet reveal" style="--f: 0.395">Stays in your organisation</span>
-            </div>
-            <p class="ac-q reveal" style="--f: 0.43">Can I claim a taxi home after a late client dinner?</p>
-            <p class="ac-notice reveal" style="--f: 0.465">
-              Ignored an instruction inside an email from billing@example.net.
-            </p>
-            <p class="ac-a">
-              Yes. You can claim a taxi after 10pm when you travel for <span class="nw">work.<span class="ac-cite reveal" style="--f: 0.5">1</span></span>
-              Keep the receipt and submit it within 30 <span class="nw">days.<span class="ac-cite reveal" style="--f: 0.535">2</span></span>
-              The limit for one journey is <span class="nw">£40.<span class="ac-nosrc reveal" style="--f: 0.57">No source</span></span>
-            </p>
-            <div class="ac-foot">
-              <span class="ac-conf reveal" style="--f: 0.6">
-                Medium confidence
-              </span>
-              <span class="ac-src reveal" style="--f: 0.62"><b>1</b> Travel policy 2026, HR team</span>
-              <span class="ac-src reveal" style="--f: 0.64"><b>2</b> Expenses guide, Finance</span>
-            </div>
-          </div>
-          <figcaption class="ac-captions">
-            <span>Says how sure it is.</span>
-            <span>Ignores orders hidden in content.</span>
-            <span>Shows what it can see.</span>
-            <span>Links every claim to a source.</span>
-          </figcaption>
-        </figure>
-      </header>
+        <ol class="steps">
+          <li class="card reveal" style="--f: 0.2"><h3>Drop your project folder</h3><p>React, Next.js, Vue, Svelte or plain HTML. Folders such as node_modules are skipped.</p></li>
+          <li class="card reveal" style="--f: 0.235"><h3>Read the findings</h3><p>Each one shows the file, the line, why it matters and the rule it breaks.</p></li>
+          <li class="card reveal" style="--f: 0.27"><h3>Paste the fix list into your AI tool</h3><p>Lovable, Bolt, Cursor or Claude can work through it one fix at a time.</p></li>
+        </ol>
+      </section>
 
       <div id="demos">
         <section
@@ -221,8 +189,8 @@ onBeforeUnmount(() => observer?.disconnect())
 
       <section class="alt" aria-labelledby="standard-title">
         <div class="wrap">
-          <h2 id="standard-title" class="reveal" style="--f: 0">Built like a standard.</h2>
-          <p class="sub reveal" style="--f: 0.12">Testable rules you can cite in a review.</p>
+          <h2 id="standard-title" class="reveal" style="--f: 0">Built on an open rulebook.</h2>
+          <p class="sub reveal" style="--f: 0.12">Every finding links to a public, testable rule. Read it, cite it or improve it.</p>
         </div>
         <div class="bento">
           <article class="card wide reveal" style="--f: 0.2">
@@ -246,11 +214,11 @@ onBeforeUnmount(() => observer?.disconnect())
 
       <section aria-labelledby="cta-title">
         <div class="wrap">
-          <h2 id="cta-title" class="reveal" style="--f: 0">Check your AI interface.</h2>
-          <p class="sub reveal" style="--f: 0.12">Every MUST is a yes-or-no check.</p>
+          <h2 id="cta-title" class="reveal" style="--f: 0">Check your AI app now.</h2>
+          <p class="sub reveal" style="--f: 0.12">Free. Runs in your browser. Nothing is uploaded.</p>
           <p class="cta reveal" style="--f: 0.24">
-            <a class="btn" :href="withBase('/checklist')">Open the checklist</a>
-            <a class="link" :href="repo">Contribute on GitHub</a>
+            <a class="btn" :href="withBase('/check')">Check your app</a>
+            <a class="link" :href="withBase('/spec/introduction')">Read the rulebook</a>
           </p>
         </div>
       </section>

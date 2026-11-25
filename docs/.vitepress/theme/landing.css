@@ -379,3 +379,26 @@ body:has(.landing) .VPLocalNav { display: none; }
 .landing .ac-pill { gap: 0; }
 .landing .ac-btn { color: var(--text); }
 .landing .ac-btn.primary { color: #fff; }
+
+/* How it works: a real three-step sequence. */
+.landing .steps {
+  list-style: none;
+  counter-reset: step;
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 20px;
+  max-width: 1100px;
+  margin: 48px auto 0;
+  padding: 0;
+  text-align: left;
+}
+.landing .steps li { counter-increment: step; }
+.landing .steps li::before {
+  content: counter(step);
+  display: block;
+  margin-bottom: 16px;
+  font-family: var(--hc-mono);
+  font-size: 13px;
+  font-weight: 500;
+  color: var(--hc-accent);
+}

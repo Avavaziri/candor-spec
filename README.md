@@ -1,18 +1,24 @@
-# Candor: AI interaction patterns
+# Candor: check your AI app
 
-Candor is an open specification of user interface patterns for AI products.
-It tells designers and engineers how an interface should show four things honestly:
+Candor checks the AI features of a web app, often one built fast with AI coding tools.
+Drop in your project and Candor lists the problems it finds, with the file, the line, why it matters and how to fix it.
+It looks for four kinds of problem:
 
-1. **Uncertainty.** How sure the AI is, and when it does not know.
-2. **Injection warnings.** Which content came from outside, and how to confirm actions that content tried to start.
-3. **Privacy boundaries.** What the AI can see, what leaves the device or tenant, consent, retention and redaction.
-4. **Verifiable citing.** Which source supports each claim, and which claims have no source.
+1. **Hidden instructions.** Tools that run without asking, and AI output inserted as raw HTML.
+2. **Data leaks.** API keys in browser code, and messages sent to a model provider with no notice.
+3. **Missing sources.** Answers built from documents that show no sources.
+4. **False confidence.** Prompts that never let the model say "I don't know".
 
-Each of the 16 patterns has testable MUST / SHOULD / MAY requirements, WCAG 2.2 AA accessibility notes, anti-patterns and a conformance checklist.
+Every finding links to a rule in the Candor rulebook: 16 patterns with testable MUST / SHOULD / MAY requirements.
 
-**Status: Editor's Draft, version 0.1.** Anything can change. Do not cite it as stable.
+**Status: version 0.1, early draft.** Rules and results can change.
 
-## Read it
+## Check your app
+
+- In the browser: <https://avavaziri.github.io/candor-spec/check>. Your code is not uploaded.
+- In a terminal: `node checker/bin/candor-check.js path/to/your-app`. See [checker/README.md](checker/README.md).
+
+## Read the rulebook
 
 - Online (after the first publish): <https://avavaziri.github.io/candor-spec/>
 - In this repository: start at [docs/spec/introduction.md](docs/spec/introduction.md), then [docs/patterns/](docs/patterns/).
@@ -47,6 +53,7 @@ Other commands:
 | Command | What it does |
 |---|---|
 | `npm run check` | Checks that every pattern follows the template. CI runs it too. |
+| `npm test` | Runs the Candor check tests. |
 | `npm run checklist` | Rebuilds `docs/checklist.md` from the pattern pages. |
 | `npm run build` | Runs the check, then builds the static site into `docs/.vitepress/dist`. |
 | `npm run preview` | Serves the built site, to test it before you publish. |
@@ -61,6 +68,7 @@ Other commands:
 | `docs/checklist.md` | The full conformance checklist. A script generates it. Do not edit it by hand. |
 | `docs/.vitepress/` | Site configuration and theme. |
 | `scripts/spec.mjs` | The template check and the checklist generator. |
+| `checker/` | Candor check: the scan rules, the command line tool and its tests. |
 
 ## Publish to GitHub Pages
 
