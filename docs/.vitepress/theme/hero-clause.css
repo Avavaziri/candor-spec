@@ -43,17 +43,6 @@
   --hc-card: #131416;
 }
 
-/* Top bar takes the hero tokens. */
-.landing nav.top {
-  --bg: var(--hc-bg);
-  --text: var(--hc-ink);
-  font-family: var(--hc-sans);
-  border-bottom: 1px solid color-mix(in srgb, var(--hc-rule) 70%, transparent);
-}
-.landing nav.top .pill { background: var(--hc-accent); color: var(--hc-on-accent); }
-.landing nav.top .pill:hover { background: var(--hc-ink); color: var(--hc-bg); }
-.landing nav.top :focus-visible { outline-color: var(--hc-accent); }
-
 .hero-clause {
   background: var(--hc-bg);
   color: var(--hc-ink);
